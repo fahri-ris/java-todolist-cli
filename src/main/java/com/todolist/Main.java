@@ -6,20 +6,65 @@ public class Main {
     public static String[] model = new String[5];
 
     public static void main(String[] args) {
-        testDeleteTodo();
+        viewShowTodo();
+    }
+
+    /**
+     * Untuk input data baru
+     * @param info
+     * @return String hasil inputan
+     */
+    public static String inputText(String info){
+        Scanner input = new Scanner(System.in);
+        System.out.print(info);
+        String text = input.nextLine();
+        return text;
+    }
+
+    public static void testInputText(){
+        String info = "Masukan text : ";
+        String result = inputText(info);
+
+        System.out.println("Hai " + result);
+    }
+
+    /**
+     * Untuk input nomor data
+     * @param info
+     * @return angka hasil inputan
+     */
+    public static Integer inputNumber(String info){
+        Scanner input = new Scanner(System.in);
+
+        System.out.print(info);
+        Integer number = input.nextInt();
+        return number;
+    }
+
+    public static void testInputNumber(){
+        String info = "Masukan Nomor : ";
+        String result = inputText(info);
+
+        System.out.println("Hai " + result);
     }
 
     /**
      * Menampilkan semua todolist
      */
     public static void showTodoList(){
+        Boolean isNoData = true;
         for(int i = 0; i < model.length; i++){
             String todo = model[i];
             Integer nomor = i + 1;
 
             if(todo != null){
+                isNoData = false;
                 System.out.println(nomor + ". " + todo);
             }
+        }
+
+        if(isNoData){
+            System.out.println("Data Masih Kosong");
         }
     }
 
@@ -74,16 +119,18 @@ public class Main {
     /**
      * Menghapus todo dari list
      */
-    public static void deleteTodo(int nomor){
+    public static String deleteTodo(int nomor){
         String[] temp = model;
 
-        // Hapus sesuai nomor
-        for(int i = 0; i < model.length; i++){
-            if((i + 1) == nomor){
-                // delete data
-                model[i] = null;
-            }
+        // Validasi, jika error
+        if(nomor > model.length){
+            return "Data tidak ada";
+        } else if(model[nomor - 1] == null){
+            return "Data tidak ada";
         }
+
+        // Hapus sesuai nomor
+        model[nomor - 1] = null;
 
         // perbaiki urutan yang telah kosong
         for(int i = 0; i < model.length; i++){
@@ -93,6 +140,7 @@ public class Main {
             }
         }
 
+        return "Data has been deleted";
     }
 
     public static void testDeleteTodo(){
@@ -103,16 +151,39 @@ public class Main {
 
         showTodoList();
 
-        deleteTodo(3);
+        System.out.println(deleteTodo(10));
         System.out.println();
-        showTodoList();
 
+        showTodoList();
     }
 
     /**
      * Menampilkan view / screen todolist
      */
     public static void viewShowTodo(){
+        System.out.println("Todolist App");
+        showTodoList();
+        Integer input;
+
+        do{
+            System.out.println();
+            System.out.println("Menu : ");
+            System.out.println("1. Tambah Data");
+            System.out.println("2. Hapus Data");
+
+            input = inputNumber("Masukkan Pilihan : ");
+
+            switch (input) {
+                case 1:
+                    viewAddTodo();
+                    break;
+                case 2:
+                    viewDeleteTodo();
+                    break;
+                default:
+                    System.out.println("Input Tidak Valid");
+            }
+        } while(input > 2 || input < 1);
 
     }
 
@@ -120,13 +191,28 @@ public class Main {
      * Menampilkan view / screen add todolist
      */
     public static void viewAddTodo(){
+        String input = inputText("Masukkan Data : ");
+        addTodo(input);
 
+        for(int i = 0; i < 20; i++){
+            System.out.print("=");
+        }
+        System.out.println();
+        viewShowTodo();
     }
 
     /**
      * Menampilkan view /screen delete todolist
      */
     public static void viewDeleteTodo(){
+        Integer input = inputNumber("Masukkan Nomor : ");
+        String resultDelete = deleteTodo(input);
+        System.out.println(resultDelete);
 
+        for(int i = 0; i < 20; i++){
+            System.out.print("=");
+        }
+        System.out.println();
+        viewShowTodo();
     }
 }
