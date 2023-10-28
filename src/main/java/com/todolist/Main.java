@@ -6,7 +6,47 @@ public class Main {
     public static String[] model = new String[5];
 
     public static void main(String[] args) {
-        testDeleteTodo();
+        testInputText();
+    }
+
+    /**
+     * Untuk input data baru
+     * @param info
+     * @param input
+     * @return String hasil inputan
+     */
+    public static String inputText(String info, Scanner input){
+        System.out.print(info);
+        String text = input.nextLine();
+        return text;
+    }
+
+    public static void testInputText(){
+        Scanner input = new Scanner(System.in);
+        String info = "Masukan text : ";
+        String result = inputText(info, input);
+
+        System.out.println("Hai " + result);
+    }
+
+    /**
+     * Untuk input nomor data
+     * @param info
+     * @param input
+     * @return angka hasil inputan
+     */
+    public static Integer inputNumber(String info, Scanner input){
+        System.out.print(info);
+        Integer number = input.nextInt();
+        return number;
+    }
+
+    public static void testInputNumber(){
+        Scanner input = new Scanner(System.in);
+        String info = "Masukan Nomor : ";
+        String result = inputText(info, input);
+
+        System.out.println("Hai " + result);
     }
 
     /**
@@ -74,16 +114,18 @@ public class Main {
     /**
      * Menghapus todo dari list
      */
-    public static void deleteTodo(int nomor){
+    public static String deleteTodo(int nomor){
         String[] temp = model;
 
-        // Hapus sesuai nomor
-        for(int i = 0; i < model.length; i++){
-            if((i + 1) == nomor){
-                // delete data
-                model[i] = null;
-            }
+        // Validasi, jika error
+        if(nomor > model.length){
+            return "Data tidak ada";
+        } else if(model[nomor - 1] == null){
+            return "Data tidak ada";
         }
+
+        // Hapus sesuai nomor
+        model[nomor - 1] = null;
 
         // perbaiki urutan yang telah kosong
         for(int i = 0; i < model.length; i++){
@@ -93,6 +135,7 @@ public class Main {
             }
         }
 
+        return "Data has been deleted";
     }
 
     public static void testDeleteTodo(){
@@ -103,10 +146,10 @@ public class Main {
 
         showTodoList();
 
-        deleteTodo(3);
+        System.out.println(deleteTodo(10));
         System.out.println();
-        showTodoList();
 
+        showTodoList();
     }
 
     /**
