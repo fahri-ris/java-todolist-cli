@@ -29,26 +29,6 @@ public class Main {
     }
 
     /**
-     * Untuk input nomor data
-     * @param info
-     * @return angka hasil inputan
-     */
-    public static Integer inputNumber(String info){
-        Scanner input = new Scanner(System.in);
-
-        System.out.print(info);
-        Integer number = input.nextInt();
-        return number;
-    }
-
-    public static void testInputNumber(){
-        String info = "Masukan Nomor : ";
-        String result = inputText(info);
-
-        System.out.println("Hai " + result);
-    }
-
-    /**
      * Menampilkan semua todolist
      */
     public static void showTodoList(){
@@ -170,8 +150,9 @@ public class Main {
             System.out.println("Menu : ");
             System.out.println("1. Tambah Data");
             System.out.println("2. Hapus Data");
+            System.out.println("0. Keluar");
 
-            input = inputNumber("Masukkan Pilihan : ");
+            input = Integer.valueOf(inputText("Masukkan Pilihan : "));
 
             switch (input) {
                 case 1:
@@ -180,10 +161,13 @@ public class Main {
                 case 2:
                     viewDeleteTodo();
                     break;
+                case 0:
+                    System.out.println("Sampai Jumpa Kembali");
+                    break;
                 default:
                     System.out.println("Input Tidak Valid");
             }
-        } while(input > 2 || input < 1);
+        } while(input > 2 || input < 0);
 
     }
 
@@ -191,10 +175,26 @@ public class Main {
      * Menampilkan view / screen add todolist
      */
     public static void viewAddTodo(){
-        String input = inputText("Masukkan Data : ");
-        addTodo(input);
+        for(int i = 0; i < 30; i++){
+            System.out.print("=");
+        }
+        System.out.println("\nMenu : ");
+        System.out.println("0. Batal");
 
-        for(int i = 0; i < 20; i++){
+        String input = inputText("Masukkan Data : ");
+
+        if(input.equalsIgnoreCase("0")){
+            System.out.println("Dibatalkan");
+            for(int i = 0; i < 30; i++){
+                System.out.print("=");
+            }
+            System.out.println();
+            viewShowTodo();
+        } else{
+            addTodo(input);
+        }
+
+        for(int i = 0; i < 30; i++){
             System.out.print("=");
         }
         System.out.println();
@@ -205,11 +205,27 @@ public class Main {
      * Menampilkan view /screen delete todolist
      */
     public static void viewDeleteTodo(){
-        Integer input = inputNumber("Masukkan Nomor : ");
-        String resultDelete = deleteTodo(input);
-        System.out.println(resultDelete);
+        for(int i = 0; i < 30; i++){
+            System.out.print("=");
+        }
+        System.out.println("\nMenu : ");
+        System.out.println("0. Batal");
 
-        for(int i = 0; i < 20; i++){
+        Integer input = Integer.valueOf(inputText("Masukkan Nomor : "));
+
+        if(input == 0){
+            System.out.println("Dibatalkan");
+            for(int i = 0; i < 30; i++){
+                System.out.print("=");
+            }
+            System.out.println();
+            viewShowTodo();
+        } else{
+            String resultDelete = deleteTodo(input);
+            System.out.println(resultDelete);
+        }
+
+        for(int i = 0; i < 30; i++){
             System.out.print("=");
         }
         System.out.println();
