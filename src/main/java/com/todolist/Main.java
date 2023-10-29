@@ -29,26 +29,6 @@ public class Main {
     }
 
     /**
-     * Untuk input nomor data
-     * @param info
-     * @return angka hasil inputan
-     */
-    public static Integer inputNumber(String info){
-        Scanner input = new Scanner(System.in);
-
-        System.out.print(info);
-        Integer number = input.nextInt();
-        return number;
-    }
-
-    public static void testInputNumber(){
-        String info = "Masukan Nomor : ";
-        String result = inputText(info);
-
-        System.out.println("Hai " + result);
-    }
-
-    /**
      * Menampilkan semua todolist
      */
     public static void showTodoList(){
@@ -172,7 +152,7 @@ public class Main {
             System.out.println("2. Hapus Data");
             System.out.println("0. Keluar");
 
-            input = inputNumber("Masukkan Pilihan : ");
+            input = Integer.valueOf(inputText("Masukkan Pilihan : "));
 
             switch (input) {
                 case 1:
@@ -195,19 +175,26 @@ public class Main {
      * Menampilkan view / screen add todolist
      */
     public static void viewAddTodo(){
+        for(int i = 0; i < 30; i++){
+            System.out.print("=");
+        }
         System.out.println("\nMenu : ");
-        System.out.println("0. Batal\n");
+        System.out.println("0. Batal");
 
         String input = inputText("Masukkan Data : ");
 
         if(input.equalsIgnoreCase("0")){
-            System.out.println("Dibatalkan\n");
+            System.out.println("Dibatalkan");
+            for(int i = 0; i < 30; i++){
+                System.out.print("=");
+            }
+            System.out.println();
             viewShowTodo();
         } else{
             addTodo(input);
         }
 
-        for(int i = 0; i < 20; i++){
+        for(int i = 0; i < 30; i++){
             System.out.print("=");
         }
         System.out.println();
@@ -218,13 +205,20 @@ public class Main {
      * Menampilkan view /screen delete todolist
      */
     public static void viewDeleteTodo(){
+        for(int i = 0; i < 30; i++){
+            System.out.print("=");
+        }
         System.out.println("\nMenu : ");
-        System.out.println("0. Batal\n");
+        System.out.println("0. Batal");
 
-        Integer input = inputNumber("Masukkan Nomor : ");
+        Integer input = Integer.valueOf(inputText("Masukkan Nomor : "));
 
         if(input == 0){
-            System.out.println("Dibatalkan\n");
+            System.out.println("Dibatalkan");
+            for(int i = 0; i < 30; i++){
+                System.out.print("=");
+            }
+            System.out.println();
             viewShowTodo();
         } else{
             String resultDelete = deleteTodo(input);
