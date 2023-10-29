@@ -170,6 +170,7 @@ public class Main {
             System.out.println("Menu : ");
             System.out.println("1. Tambah Data");
             System.out.println("2. Hapus Data");
+            System.out.println("0. Keluar");
 
             input = inputNumber("Masukkan Pilihan : ");
 
@@ -180,10 +181,13 @@ public class Main {
                 case 2:
                     viewDeleteTodo();
                     break;
+                case 0:
+                    System.out.println("Sampai Jumpa Kembali");
+                    break;
                 default:
                     System.out.println("Input Tidak Valid");
             }
-        } while(input > 2 || input < 1);
+        } while(input > 2 || input < 0);
 
     }
 
@@ -191,8 +195,17 @@ public class Main {
      * Menampilkan view / screen add todolist
      */
     public static void viewAddTodo(){
+        System.out.println("\nMenu : ");
+        System.out.println("0. Batal\n");
+
         String input = inputText("Masukkan Data : ");
-        addTodo(input);
+
+        if(input.equalsIgnoreCase("0")){
+            System.out.println("Dibatalkan\n");
+            viewShowTodo();
+        } else{
+            addTodo(input);
+        }
 
         for(int i = 0; i < 20; i++){
             System.out.print("=");
@@ -205,11 +218,20 @@ public class Main {
      * Menampilkan view /screen delete todolist
      */
     public static void viewDeleteTodo(){
-        Integer input = inputNumber("Masukkan Nomor : ");
-        String resultDelete = deleteTodo(input);
-        System.out.println(resultDelete);
+        System.out.println("\nMenu : ");
+        System.out.println("0. Batal\n");
 
-        for(int i = 0; i < 20; i++){
+        Integer input = inputNumber("Masukkan Nomor : ");
+
+        if(input == 0){
+            System.out.println("Dibatalkan\n");
+            viewShowTodo();
+        } else{
+            String resultDelete = deleteTodo(input);
+            System.out.println(resultDelete);
+        }
+
+        for(int i = 0; i < 30; i++){
             System.out.print("=");
         }
         System.out.println();
